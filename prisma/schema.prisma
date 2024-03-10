@@ -1,0 +1,129 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider        = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Key {
+  Dur  @map("Мажор")
+  Moll @map("Минор")
+}
+
+enum Service {
+  Liturgy  @map("Литургия")
+  Vespers  @map("Вечерня")
+  Matins   @map("Утреня")
+  Compline @map("Повечерие")
+  Vigil    @map("Всенощная")
+}
+
+enum Choir {
+  Mixed    @map("Смешанный хор")
+  Male     @map("Мужской хор")
+  Female   @map("Женский хор")
+  Children @map("Детский хор")
+  Dual     @map("Два хора")
+}
+
+enum Soloist {
+  Soprano  @map("Сопрано")
+  Alto     @map("Альт")
+  Tenor    @map("Тенор")
+  Baritone @map("Баритон")
+  Bass     @map("Бас")
+  Profundo @map("Бас профундо")
+  Multiple @map("Несколько солистов")
+}
+
+enum Language {
+  Russian        @map("Русский")
+  ChurchSlavonic @map("Церковнославянский")
+  Georgian       @map("Грузинский")
+  Latin          @map("Латинский")
+  English        @map("Английский")
+  Greek          @map("Греческий")
+}
+
+enum Tonality {
+  AS @map("Ля♯")
+  A  @map("Ля")
+  AF @map("Ля♭")
+  B  @map("Си♭")
+  H  @map("Си")
+  CS @map("До♯")
+  C  @map("До")
+  CF @map("До♭")
+  DS @map("Ре♯")
+  D  @map("Ре")
+  DF @map("Ре♭")
+  ES @map("Ми♯")
+  E  @map("Ми")
+  EF @map("Ми♭")
+  FS @map("Фа♯")
+  F  @map("Фа")
+  FF @map("Фа♭")
+  GS @map("Соль♯")
+  G  @map("Соль")
+  GF @map("Соль♭")
+}
+
+model Sheet {
+  id            Int                 @id @default(autoincrement())
+  title         String
+  filePath      String              @unique
+  thumbnailPath String              @unique
+  author        String?
+  arranger      String?
+  typesetter    String?
+  variant       String?
+  tonality      Tonality?
+  writtenIn     Int?
+  key           Key?
+  language      Language?
+  translit      Language?
+  holiday       String?
+  service       Service?
+  text          String?
+  alias         String?
+  choir         Choir?
+  voices        Int?
+  book          String?
+  soloist       Soloist?
+  description   String?
+  videoLink     String?
+  audioPath     String?
+  createdAt     DateTime            @default(now())
+  updatedAt     DateTime            @updatedAt
+  sheetsets     SheetsOnSheetsets[]
+}
+
+model Sheetset {
+  id          Int                 @id @default(autoincrement())
+  title       String
+  description String?
+  service     Service?
+  date        String?
+  createdAt   DateTime            @default(now())
+  updatedAt   DateTime            @updatedAt
+  sheets      SheetsOnSheetsets[]
+}
+
+model SheetsOnSheetsets {
+  sheet      Sheet    @relation(fields: [sheetId], references: [id])
+  index      Int
+  sheetset   Sheetset @relation(fields: [sheetsetId], references: [id])
+  assignedAt DateTime @default(now())
+  sheetId    Int
+  sheetsetId Int
+
+  @@id([sheetId, sheetsetId])
+}

@@ -1,0 +1,17 @@
+@font-face {
+  font-family: FuturaPT;
+  src: url(../public/FuturaPT-Book.woff2) format('woff2');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: FuturaPT;
+  src: url(/public/FuturaPT-Bold.woff2) format('woff2');
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: FuturaPT;
+  src: url(/public/FuturaPT-Medium.woff2) format('woff2');
+  font-weight: 500;
+}

@@ -1,0 +1,41 @@
+{
+  "name": "az",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "migrate": "prisma migrate dev",
+    "gen": "prisma generate"
+  },
+  "dependencies": {
+    "@mdi/font": "^7.4.47",
+    "@pinia/nuxt": "^0.5.1",
+    "@prisma/client": "^5.10.2",
+    "@trpc/client": "^10.45.1",
+    "@trpc/server": "^10.45.1",
+    "@vee-validate/zod": "^4.12.5",
+    "adm-zip": "^0.5.10",
+    "canvas": "^2.11.2",
+    "md5": "^2.3.0",
+    "nuxt": "^3.10.3",
+    "pdfjs-dist": "^4.0.379",
+    "trpc-nuxt": "^0.10.19",
+    "vee-validate": "^4.12.5",
+    "vue": "^3.4.19",
+    "vue-router": "^4.3.0",
+    "vuedraggable": "next",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@types/adm-zip": "^0.5.5",
+    "@types/bun": "^1.0.8",
+    "@types/md5": "^2.3.5",
+    "prisma": "^5.10.2",
+    "vite-plugin-vuetify": "^2.0.2",
+    "vuetify": "^3.5.8"
+  }
+}
